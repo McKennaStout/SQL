@@ -1,0 +1,32 @@
+-- Create temporary tables for Excel data
+CREATE TEMPORARY TABLE Excel1Data (
+    ID INT,
+    Name VARCHAR(255),
+    Value DECIMAL
+);
+
+CREATE TEMPORARY TABLE Excel2Data (
+    ID INT,
+    Name VARCHAR(255),
+    Value DECIMAL
+);
+
+-- Assuming data from Excel has been imported somehow into these temp tables
+
+-- SQL Query to join Excel data with CSS Database data
+SELECT
+    e1.ID,
+    e1.Name,
+    e2.Value AS Excel2Value,
+    dt.Description,
+    dt.Amount
+FROM
+    Excel1Data e1
+JOIN
+    Excel2Data e2 ON e1.ID = e2.ID
+JOIN
+    DatabaseTable dt ON e1.ID = dt.ID
+WHERE
+    e1.Value > 100 -- Example condition
+ORDER BY
+    e1.Value DESC;
